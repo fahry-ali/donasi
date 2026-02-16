@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\DonasiNotification;
 use App\Models\Donasi;
 use App\Models\ProgramDonasi;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class DonasiController extends Controller
@@ -68,6 +70,18 @@ class DonasiController extends Controller
             'pesan' => $request->pesan,
             'status_donasi' => 'menunggu',
         ]);
+
+        // Load program for email
+        $donasi->load('program');
+
+        // Send email notification if email provided
+        if ($donasi->email) {
+            try {
+                Mail::to($donasi->email)->send(new DonasiNotification($donasi));
+            } catch (\Exception $e) {
+                \Log::error('Email Error: ' . $e->getMessage());
+            }
+        }
 
         return redirect()->route('donasi.success', $donasi->kode_transaksi);
     }

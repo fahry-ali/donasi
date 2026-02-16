@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="mb-4">
-    <h4 class="fw-bold">Selamat datang, {{ auth()->user()->nama }}! 👋</h4>
+    <h4 class="fw-bold">Selamat datang, {{ auth()->user()->nama }}!</h4>
     <p class="text-muted">Kelola usulan program dan pantau kontribusi Anda untuk panti asuhan</p>
 </div>
 
