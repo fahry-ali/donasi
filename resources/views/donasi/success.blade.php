@@ -46,6 +46,21 @@
                         </div>
                         
                         <div class="d-grid gap-2">
+                            @php
+                                $waNumber = \App\Models\Setting::get('wa_konfirmasi', '6281234567890');
+                                $waMessage = urlencode(
+                                    "Assalamu'alaikum, saya ingin mengkonfirmasi donasi saya:\n\n" .
+                                    "Kode Transaksi: " . $donasi->kode_transaksi . "\n" .
+                                    "Program: " . $donasi->program->judul_program . "\n" .
+                                    "Nama: " . $donasi->nama_donatur . "\n" .
+                                    "Nominal: Rp " . number_format($donasi->nominal, 0, ',', '.') . "\n" .
+                                    "Metode: " . ucfirst($donasi->metode_pembayaran) . "\n\n" .
+                                    "Mohon diverifikasi. Terima kasih."
+                                );
+                            @endphp
+                            <a href="https://wa.me/{{ $waNumber }}?text={{ $waMessage }}" target="_blank" class="btn btn-success btn-lg">
+                                <i class="bi bi-whatsapp me-2"></i>Konfirmasi via WhatsApp
+                            </a>
                             <a href="{{ route('donasi.track') }}?kode={{ $donasi->kode_transaksi }}" class="btn btn-outline-primary">
                                 <i class="bi bi-search me-2"></i>Lacak Status Donasi
                             </a>

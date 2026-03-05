@@ -21,6 +21,7 @@ class User extends Authenticatable
     protected $fillable = [
         'nama',
         'email',
+        'no_hp',
         'password',
         'role',
     ];
@@ -61,6 +62,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Check if user is donatur.
+     */
+    public function isDonatur(): bool
+    {
+        return $this->role === 'donatur';
+    }
+
+    /**
      * Get programs created by this user.
      */
     public function programs()
@@ -82,5 +91,13 @@ class User extends Authenticatable
     public function kontenKegiatan()
     {
         return $this->hasMany(KontenKegiatan::class, 'created_by', 'id_user');
+    }
+
+    /**
+     * Get donations made by this user.
+     */
+    public function donasi()
+    {
+        return $this->hasMany(Donasi::class, 'id_user', 'id_user');
     }
 }

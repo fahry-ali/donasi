@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\KategoriProgramController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\User\UsulanProgramController as UserUsulanController;
+use App\Http\Controllers\Auth\DonaturAuthController;
+use App\Http\Controllers\Donatur\DashboardController as DonaturDashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +39,24 @@ Route::get('/lacak-donasi', [DonasiController::class, 'track'])->name('donasi.tr
 // Activities
 Route::get('/kegiatan', [KegiatanController::class, 'index'])->name('kegiatan.index');
 Route::get('/kegiatan/{id}', [KegiatanController::class, 'show'])->name('kegiatan.show');
+
+/*
+|--------------------------------------------------------------------------
+| Donatur Auth Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('guest')->group(function () {
+    Route::get('/daftar', function () {
+        return view('auth.register-choice');
+    })->name('register.choice');
+    Route::get('/donatur/register', [DonaturAuthController::class, 'showRegisterForm'])->name('donatur.register');
+    Route::post('/donatur/register', [DonaturAuthController::class, 'register'])->name('donatur.register.store');
+    Route::get('/donatur/login', [DonaturAuthController::class, 'showLoginForm'])->name('donatur.login');
+    Route::post('/donatur/login', [DonaturAuthController::class, 'login'])->name('donatur.login.store');
+});
+
+Route::post('/donatur/logout', [DonaturAuthController::class, 'logout'])->middleware('auth')->name('donatur.logout');
 
 /*
 |--------------------------------------------------------------------------
@@ -107,7 +127,7 @@ Route::middleware(['auth', \App\Http\Middleware\IsAdmin::class])
 
 /*
 |--------------------------------------------------------------------------
-| User Dashboard Routes
+| User Dashboard Routes (Masyarakat)
 |--------------------------------------------------------------------------
 */
 
@@ -127,6 +147,20 @@ Route::middleware(['auth', \App\Http\Middleware\IsMasyarakat::class])
 
 /*
 |--------------------------------------------------------------------------
+| Donatur Dashboard Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth', \App\Http\Middleware\IsDonatur::class])
+    ->prefix('donatur')
+    ->name('donatur.')
+    ->group(function () {
+        // Dashboard
+        Route::get('/dashboard', [DonaturDashboardController::class, 'index'])->name('dashboard');
+    });
+
+/*
+|--------------------------------------------------------------------------
 | Dashboard Redirect
 |--------------------------------------------------------------------------
 */
@@ -135,7 +169,11 @@ Route::get('/dashboard', function () {
     if (auth()->user()->isAdmin()) {
         return redirect()->route('admin.dashboard');
     }
+    if (auth()->user()->isDonatur()) {
+        return redirect()->route('donatur.dashboard');
+    }
     return redirect()->route('user.dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+

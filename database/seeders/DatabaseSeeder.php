@@ -32,6 +32,15 @@ class DatabaseSeeder extends Seeder
             'role' => 'masyarakat',
         ]);
 
+        // Create Sample Donatur User
+        User::create([
+            'nama' => 'Donatur Demo',
+            'email' => 'donatur@example.com',
+            'no_hp' => '081234567890',
+            'password' => Hash::make('password'),
+            'role' => 'donatur',
+        ]);
+
         // Create Kategori Program
         $kategoriPendidikan = KategoriProgram::create(['nama_kategori' => 'Pendidikan']);
         $kategoriKesehatan = KategoriProgram::create(['nama_kategori' => 'Kesehatan']);

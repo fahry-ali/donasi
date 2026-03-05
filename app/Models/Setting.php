@@ -44,4 +44,20 @@ class Setting extends Model
             'qris_atas_nama' => static::get('qris_atas_nama', 'Yayasan Bumi Damai'),
         ];
     }
+
+    /**
+     * Get site settings (logo, hero, WA, etc).
+     */
+    public static function getSiteSettings(): array
+    {
+        return [
+            'site_name' => static::get('site_name', 'Bumi Damai'),
+            'site_logo' => static::get('site_logo', ''),
+            'hero_title' => static::get('hero_title', 'Berbagi Kebahagiaan untuk Anak-Anak Panti'),
+            'hero_subtitle' => static::get('hero_subtitle', 'Mari bergabung bersama kami dalam misi mulia membantu anak-anak yatim piatu dan dhuafa mendapatkan pendidikan dan kehidupan yang lebih baik.'),
+            'hero_badge' => static::get('hero_badge', 'Yayasan Sosial Kemanusiaan'),
+            'hero_image' => static::get('hero_image', ''),
+            'wa_konfirmasi' => static::get('wa_konfirmasi', '6281234567890'),
+        ];
+    }
 }

@@ -4,15 +4,18 @@
 
 @section('content')
 <!-- Hero Section -->
+@php
+    $siteSettings = \App\Models\Setting::getSiteSettings();
+@endphp
 <section class="hero-section" style="background: linear-gradient(135deg, #064e3b 0%, #1e40af 100%); padding: 6rem 0; color: white;">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6" data-aos="fade-right">
                 <span class="badge bg-white text-primary-dark px-3 py-2 mb-3" style="color: #064e3b !important;">
-                    <i class="bi bi-heart-fill me-1"></i> Yayasan Sosial Kemanusiaan
+                    <i class="bi bi-heart-fill me-1"></i> {{ $siteSettings['hero_badge'] }}
                 </span>
-                <h1 class="display-4 fw-bold mb-4">Berbagi Kebahagiaan untuk Anak-Anak Panti</h1>
-                <p class="lead mb-4 opacity-75">Mari bergabung bersama kami dalam misi mulia membantu anak-anak yatim piatu dan dhuafa mendapatkan pendidikan dan kehidupan yang lebih baik.</p>
+                <h1 class="display-4 fw-bold mb-4">{{ $siteSettings['hero_title'] }}</h1>
+                <p class="lead mb-4 opacity-75">{{ $siteSettings['hero_subtitle'] }}</p>
                 <div class="d-flex gap-3">
                     <a href="{{ route('programs.index') }}" class="btn btn-light btn-lg px-4" style="color: #064e3b;">
                         <i class="bi bi-hand-index-thumb me-2"></i>Donasi Sekarang
@@ -24,8 +27,13 @@
             </div>
             <div class="col-lg-6 mt-5 mt-lg-0" data-aos="fade-left">
                 <div class="text-center">
-                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&h=400&fit=crop" 
-                         alt="Anak-anak Panti" class="img-fluid rounded-4 shadow-lg" style="max-height: 400px; object-fit: cover;">
+                    @if($siteSettings['hero_image'])
+                        <img src="{{ asset($siteSettings['hero_image']) }}" 
+                             alt="Hero Image" class="img-fluid rounded-4 shadow-lg" style="max-height: 400px; object-fit: cover;">
+                    @else
+                        <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&h=400&fit=crop" 
+                             alt="Anak-anak Panti" class="img-fluid rounded-4 shadow-lg" style="max-height: 400px; object-fit: cover;">
+                    @endif
                 </div>
             </div>
         </div>

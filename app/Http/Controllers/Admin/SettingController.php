@@ -14,7 +14,8 @@ class SettingController extends Controller
     public function index()
     {
         $settings = Setting::getPaymentSettings();
-        return view('admin.settings.index', compact('settings'));
+        $siteSettings = Setting::getSiteSettings();
+        return view('admin.settings.index', compact('settings', 'siteSettings'));
     }
 
     /**
@@ -31,6 +32,13 @@ class SettingController extends Controller
             'bank2_atas_nama' => 'nullable|string|max:100',
             'qris_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'qris_atas_nama' => 'required|string|max:100',
+            'site_name' => 'nullable|string|max:100',
+            'site_logo' => 'nullable|image|mimes:jpg,jpeg,png,svg,webp|max:2048',
+            'hero_title' => 'nullable|string|max:255',
+            'hero_subtitle' => 'nullable|string|max:500',
+            'hero_badge' => 'nullable|string|max:100',
+            'hero_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'wa_konfirmasi' => 'nullable|string|max:20',
         ]);
 
         // Save bank settings
@@ -48,7 +56,40 @@ class SettingController extends Controller
             Setting::set('qris_image', 'storage/' . $path);
         }
 
+        // Save site settings
+        if ($request->filled('site_name')) {
+            Setting::set('site_name', $request->site_name);
+        }
+
+        if ($request->filled('hero_title')) {
+            Setting::set('hero_title', $request->hero_title);
+        }
+
+        if ($request->filled('hero_subtitle')) {
+            Setting::set('hero_subtitle', $request->hero_subtitle);
+        }
+
+        if ($request->filled('hero_badge')) {
+            Setting::set('hero_badge', $request->hero_badge);
+        }
+
+        if ($request->filled('wa_konfirmasi')) {
+            Setting::set('wa_konfirmasi', $request->wa_konfirmasi);
+        }
+
+        // Handle logo upload
+        if ($request->hasFile('site_logo')) {
+            $path = $request->file('site_logo')->store('site', 'public');
+            Setting::set('site_logo', 'storage/' . $path);
+        }
+
+        // Handle hero image upload
+        if ($request->hasFile('hero_image')) {
+            $path = $request->file('hero_image')->store('hero', 'public');
+            Setting::set('hero_image', 'storage/' . $path);
+        }
+
         return redirect()->route('admin.settings.index')
-            ->with('success', 'Pengaturan pembayaran berhasil disimpan.');
+            ->with('success', 'Pengaturan berhasil disimpan.');
     }
 }

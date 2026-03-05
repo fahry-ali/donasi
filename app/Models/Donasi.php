@@ -15,6 +15,7 @@ class Donasi extends Model
 
     protected $fillable = [
         'id_program',
+        'id_user',
         'nama_donatur',
         'email',
         'no_hp',
@@ -62,6 +63,14 @@ class Donasi extends Model
     public function program()
     {
         return $this->belongsTo(ProgramDonasi::class, 'id_program', 'id_program');
+    }
+
+    /**
+     * Get the user (donatur) for this donation.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user', 'id_user');
     }
 
     /**

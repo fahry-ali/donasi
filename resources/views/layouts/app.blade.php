@@ -404,11 +404,17 @@
     @stack('styles')
 </head>
 <body>
+    @php $__siteSettings = \App\Models\Setting::getSiteSettings(); @endphp
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-main sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('home') }}">
-                <i class="bi bi-heart-pulse-fill me-2"></i>Bumi Damai
+            <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
+                @if($__siteSettings['site_logo'])
+                    <img src="{{ asset($__siteSettings['site_logo']) }}" alt="{{ $__siteSettings['site_name'] }}" style="height: 32px;" class="me-2">
+                @else
+                    <i class="bi bi-heart-pulse-fill me-2"></i>
+                @endif
+                {{ $__siteSettings['site_name'] }}
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -430,12 +436,24 @@
                 </ul>
                 <div class="d-flex gap-2">
                     @auth
-                        <a href="{{ route('dashboard') }}" class="btn btn-outline-primary">
-                            <i class="bi bi-person-circle me-1"></i>{{ auth()->user()->nama }}
-                        </a>
+                        @if(auth()->user()->isDonatur())
+                            <a href="{{ route('donatur.dashboard') }}" class="btn btn-outline-primary">
+                                <i class="bi bi-person-circle me-1"></i>{{ auth()->user()->nama }}
+                            </a>
+                            <form method="POST" action="{{ route('donatur.logout') }}" class="d-inline">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-danger">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                </button>
+                            </form>
+                        @else
+                            <a href="{{ route('dashboard') }}" class="btn btn-outline-primary">
+                                <i class="bi bi-person-circle me-1"></i>{{ auth()->user()->nama }}
+                            </a>
+                        @endif
                     @else
-                        <a href="{{ route('login') }}" class="btn btn-outline-primary">Masuk</a>
-                        <a href="{{ route('register') }}" class="btn btn-primary">Daftar</a>
+                        <a href="{{ route('donatur.login') }}" class="btn btn-outline-primary">Masuk</a>
+                        <a href="{{ route('register.choice') }}" class="btn btn-primary">Daftar</a>
                     @endauth
                 </div>
             </div>
@@ -471,7 +489,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mb-4">
-                    <h5><i class="bi bi-heart-pulse-fill me-2 text-primary"></i>Panti Asuhan Bumi Damai</h5>
+                    <h5>
+                        @if($__siteSettings['site_logo'])
+                            <img src="{{ asset($__siteSettings['site_logo']) }}" alt="{{ $__siteSettings['site_name'] }}" style="height: 28px;" class="me-2">
+                        @else
+                            <i class="bi bi-heart-pulse-fill me-2 text-primary"></i>
+                        @endif
+                        Panti Asuhan {{ $__siteSettings['site_name'] }}
+                    </h5>
                     <p>Yayasan yang bergerak dalam bidang sosial kemanusiaan untuk membantu anak-anak yatim piatu dan dhuafa mendapatkan kehidupan yang lebih baik.</p>
                     <div class="d-flex gap-3 mt-3">
                         <a href="#" class="fs-5"><i class="bi bi-facebook"></i></a>
@@ -506,7 +531,7 @@
                 </div>
             </div>
             <div class="footer-bottom text-center">
-                <p class="mb-0">&copy; {{ date('Y') }} Panti Asuhan Bumi Damai. All rights reserved.</p>
+                <p class="mb-0">&copy; {{ date('Y') }} Panti Asuhan {{ $__siteSettings['site_name'] }}. All rights reserved.</p>
             </div>
         </div>
     </footer>

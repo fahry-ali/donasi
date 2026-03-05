@@ -16,6 +16,11 @@
                             </div>
                             <h3 class="fw-bold">Form Donasi</h3>
                             <p class="text-muted">{{ $program->judul_program }}</p>
+                            @if(isset($isGuest) && $isGuest)
+                                <span class="badge rounded-pill" style="background: #fef3c7; color: #d97706;">
+                                    <i class="bi bi-person me-1"></i>Donasi sebagai Tamu
+                                </span>
+                            @endif
                         </div>
                         
                         <!-- Bank Info -->
@@ -54,33 +59,69 @@
                             @csrf
                             <input type="hidden" name="id_program" value="{{ $program->id_program }}">
                             
+                            {{-- Authenticated donatur: show auto-filled info --}}
+                            @auth
+                                @if(auth()->user()->isDonatur())
+                                <div class="alert mb-4" style="background: #eff6ff; border: 1px solid #bfdbfe;">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="bi bi-person-check-fill text-primary me-2 fs-5"></i>
+                                        <span class="fw-semibold">Berdonasi sebagai:</span>
+                                    </div>
+                                    <div class="row g-2">
+                                        <div class="col-md-4">
+                                            <small class="text-muted d-block">Nama</small>
+                                            <span class="fw-semibold">{{ auth()->user()->nama }}</span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <small class="text-muted d-block">Email</small>
+                                            <span class="fw-semibold">{{ auth()->user()->email }}</span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <small class="text-muted d-block">No. HP</small>
+                                            <span class="fw-semibold">{{ auth()->user()->no_hp ?? '-' }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
+                            @endauth
+
+                            {{-- Guest mode: show manual input fields --}}
+                            @if(isset($isGuest) && $isGuest)
+                            <div class="alert mb-4" style="background: #fffbeb; border: 1px solid #fde68a;">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="bi bi-person-fill text-warning me-2 fs-5"></i>
+                                    <span class="fw-semibold">Data Donatur</span>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-md-12">
+                                        <label class="form-label fw-semibold">Nama Lengkap <span class="text-danger">*</span></label>
+                                        <input type="text" name="nama_donatur" class="form-control @error('nama_donatur') is-invalid @enderror" 
+                                               value="{{ old('nama_donatur') }}" placeholder="Masukkan nama lengkap Anda" required>
+                                        @error('nama_donatur')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
+                                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" 
+                                               value="{{ old('email') }}" placeholder="email@contoh.com" required>
+                                        @error('email')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">No. HP <small class="text-muted">(Opsional)</small></label>
+                                        <input type="text" name="no_hp" class="form-control @error('no_hp') is-invalid @enderror" 
+                                               value="{{ old('no_hp') }}" placeholder="08xxxxxxxxxx">
+                                        @error('no_hp')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+
                             <div class="row g-3">
-                                <div class="col-12">
-                                    <label class="form-label fw-semibold">Nama Lengkap <span class="text-danger">*</span></label>
-                                    <input type="text" name="nama_donatur" class="form-control @error('nama_donatur') is-invalid @enderror" 
-                                           value="{{ old('nama_donatur') }}" placeholder="Masukkan nama Anda" required>
-                                    @error('nama_donatur')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                
-                                <div class="col-md-6">
-                                    <label class="form-label fw-semibold">Email</label>
-                                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" 
-                                           value="{{ old('email') }}" placeholder="email@example.com">
-                                    @error('email')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                
-                                <div class="col-md-6">
-                                    <label class="form-label fw-semibold">No. HP/WhatsApp</label>
-                                    <input type="text" name="no_hp" class="form-control @error('no_hp') is-invalid @enderror" 
-                                           value="{{ old('no_hp') }}" placeholder="08xxxxxxxxxx">
-                                    @error('no_hp')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
                                 
                                 <div class="col-12">
                                     <label class="form-label fw-semibold">Nominal Donasi <span class="text-danger">*</span></label>

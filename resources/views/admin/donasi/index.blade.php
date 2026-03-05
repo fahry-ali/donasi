@@ -101,7 +101,7 @@
             </table>
         </div>
         
-        {{ $donasi->withQueryString()->links() }}
+        {{ $donasi->withQueryString()->links('pagination::bootstrap-5') }}
     </div>
 </div>
 @endsection

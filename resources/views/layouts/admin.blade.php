@@ -317,7 +317,7 @@
             
             <div class="nav-item-header">Pengaturan</div>
             <a href="{{ route('admin.settings.index') }}" class="nav-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
-                <i class="bi bi-gear-fill"></i> Pengaturan Pembayaran
+                <i class="bi bi-gear-fill"></i> Pengaturan
             </a>
             
             <div class="nav-item-header">Akun</div>
