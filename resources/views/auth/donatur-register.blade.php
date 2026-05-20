@@ -35,7 +35,7 @@
                             <div class="mb-3">
                                 <label for="email" class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
                                 <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                                       value="{{ old('email') }}" placeholder="email@example.com" required>
+                                       value="{{ old('email') }}" placeholder="email@gmail.com" required>
                                 @error('email')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

@@ -500,7 +500,7 @@
                     <p>Yayasan yang bergerak dalam bidang sosial kemanusiaan untuk membantu anak-anak yatim piatu dan dhuafa mendapatkan kehidupan yang lebih baik.</p>
                     <div class="d-flex gap-3 mt-3">
                         <a href="#" class="fs-5"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="fs-5"><i class="bi bi-instagram"></i></a>
+                        <a href="https://www.instagram.com/yayasanbumidamai?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="fs-5"><i class="bi bi-instagram"></i></a>
                         <a href="#" class="fs-5"><i class="bi bi-youtube"></i></a>
                         <a href="#" class="fs-5"><i class="bi bi-whatsapp"></i></a>
                     </div>
@@ -517,16 +517,16 @@
                 <div class="col-lg-3 col-md-4 mb-4">
                     <h5>Kontak</h5>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>Jl. Contoh No. 123, Kota</li>
-                        <li class="mb-2"><i class="bi bi-telephone me-2"></i>(021) 1234-5678</li>
-                        <li class="mb-2"><i class="bi bi-envelope me-2"></i>info@bumidamai.org</li>
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>Gg. Janoko, Mutilan, Purbayan, Kec. Kotagede, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55173</li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i> 081392087348 </li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i>bumidamai512@gmail.com</li>
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-4 mb-4">
                     <h5>Rekening Donasi</h5>
                     <ul class="list-unstyled">
                         <li class="mb-2"><strong>Bank BCA</strong><br>123-456-7890<br>a.n. Yayasan Bumi Damai</li>
-                        <li class="mb-2"><strong>Bank Mandiri</strong><br>098-765-4321<br>a.n. Yayasan Bumi Damai</li>
+                        <li class="mb-2"><strong>Bank Mandiri</strong><br>1370-01-243456-5<br>a.n. Yayasan Rumah Singah Bumi Damai</li>
                     </ul>
                 </div>
             </div>

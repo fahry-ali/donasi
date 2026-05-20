@@ -60,4 +60,19 @@ class Setting extends Model
             'wa_konfirmasi' => static::get('wa_konfirmasi', '6281234567890'),
         ];
     }
+
+    /**
+     * Get yayasan profile settings.
+     */
+    public static function getProfileSettings(): array
+    {
+        return [
+            'profil_nama' => static::get('profil_nama', 'Yayasan Bumi Damai'),
+            'profil_deskripsi1' => static::get('profil_deskripsi1', 'Yayasan Bumi Damai adalah lembaga sosial yang berdedikasi untuk memberikan perlindungan, pendidikan, dan kasih sayang kepada anak-anak yatim, piatu, dan dhuafa. Kami berkomitmen untuk menciptakan lingkungan yang aman dan penuh cinta bagi setiap anak asuh kami.'),
+            'profil_deskripsi2' => static::get('profil_deskripsi2', 'Dengan dukungan para donatur dan relawan, kami telah menjalankan berbagai program pemberdayaan mulai dari pendidikan formal, pelatihan keterampilan, hingga kegiatan sosial yang membangun karakter anak-anak menjadi generasi yang mandiri dan berakhlak mulia.'),
+            'profil_visi' => static::get('profil_visi', 'Menjadi lembaga sosial terpercaya yang mampu mencetak generasi muda yang mandiri, berpendidikan, dan berakhlak mulia melalui program pembinaan yang berkelanjutan.'),
+            'profil_misi' => static::get('profil_misi', 'Memberikan pendidikan berkualitas, pendampingan spiritual, pelatihan keterampilan hidup, serta menciptakan lingkungan yang kondusif bagi tumbuh kembang anak asuh.'),
+            'profil_nilai' => static::get('profil_nilai', 'Kejujuran, transparansi, dan keikhlasan adalah pondasi kami dalam melayani. Setiap donasi yang masuk akan dikelola secara amanah untuk kesejahteraan anak-anak asuh.'),
+        ];
+    }
 }

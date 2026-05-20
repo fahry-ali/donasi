@@ -15,7 +15,6 @@
                                 <i class="bi bi-box-arrow-in-right fs-2 text-primary"></i>
                             </div>
                             <h3 class="fw-bold">Masuk ke Akun</h3>
-                            <p class="text-muted">Login untuk semua jenis akun (Admin, Masyarakat, Donatur)</p>
                         </div>
 
                         <!-- Session Status -->

@@ -140,9 +140,15 @@
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-user sticky-top">
+        @php $__siteSettings = \App\Models\Setting::getSiteSettings(); @endphp
         <div class="container">
             <a href="{{ route('home') }}" class="navbar-brand">
-                <i class="bi bi-heart-pulse-fill text-primary me-1"></i><span>Bumi</span> Damai
+                @if($__siteSettings['site_logo'])
+                    <img src="{{ asset($__siteSettings['site_logo']) }}" alt="{{ $__siteSettings['site_name'] }}" style="height: 32px;" class="me-2">
+                @else
+                    <i class="bi bi-heart-pulse-fill text-primary me-1"></i>
+                @endif
+                <span>{{ $__siteSettings['site_name'] }}</span>
             </a>
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

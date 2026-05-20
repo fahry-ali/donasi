@@ -21,7 +21,7 @@
                         <i class="bi bi-hand-index-thumb me-2"></i>Donasi Sekarang
                     </a>
                     <a href="{{ route('kegiatan.index') }}" class="btn btn-outline-light btn-lg px-4">
-                        <i class="bi bi-play-circle me-2"></i>Lihat Kegiatan
+                        <i class="bi bi-play-circle me-2"></i>Profil Yayasan
                     </a>
                 </div>
             </div>
@@ -41,29 +41,29 @@
 </section>
 
 <!-- Statistics Section -->
-<section class="py-5" style="margin-top: -3rem;">
+<section class="py-5" style="margin-top: -1.5rem;">
     <div class="container">
         <div class="row g-4">
             <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="0">
-                <div class="card h-100 text-center p-4">
+                <div class="card h-100 text-center p-4" style="box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-radius: 16px;">
                     <div class="display-4 fw-bold text-primary mb-2">Rp {{ number_format($totalDonasi/1000000, 0, ',', '.') }}Jt+</div>
                     <p class="text-muted mb-0">Total Donasi Terkumpul</p>
                 </div>
             </div>
             <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-                <div class="card h-100 text-center p-4">
+                <div class="card h-100 text-center p-4" style="box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-radius: 16px;">
                     <div class="display-4 fw-bold text-primary mb-2">{{ $totalDonatur }}</div>
-                    <p class="text-muted mb-0">Donatur Baik Hati</p>
+                    <p class="text-muted mb-0">Donatur</p>
                 </div>
             </div>
             <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-                <div class="card h-100 text-center p-4">
+                <div class="card h-100 text-center p-4" style="box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-radius: 16px;">
                     <div class="display-4 fw-bold text-primary mb-2">{{ $totalProgram }}</div>
                     <p class="text-muted mb-0">Program Donasi</p>
                 </div>
             </div>
             <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
-                <div class="card h-100 text-center p-4">
+                <div class="card h-100 text-center p-4" style="box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-radius: 16px;">
                     <div class="display-4 fw-bold text-primary mb-2">{{ $programSelesai }}</div>
                     <p class="text-muted mb-0">Program Terpenuhi</p>
                 </div>

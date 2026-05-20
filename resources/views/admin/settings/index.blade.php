@@ -90,6 +90,44 @@
                 </div>
             </div>
 
+            {{-- Profil Yayasan Settings --}}
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="bi bi-building me-2"></i>Profil Yayasan (Halaman Kegiatan)
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Nama Yayasan</label>
+                        <input type="text" name="profil_nama" class="form-control"
+                               value="{{ old('profil_nama', $profileSettings['profil_nama']) }}" placeholder="Yayasan Bumi Damai">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Deskripsi Utama</label>
+                        <textarea name="profil_deskripsi1" class="form-control" rows="3" placeholder="Deskripsi utama tentang yayasan...">{{ old('profil_deskripsi1', $profileSettings['profil_deskripsi1']) }}</textarea>
+                        <small class="text-muted">Paragraf pertama di bagian hero profil.</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Deskripsi Tambahan</label>
+                        <textarea name="profil_deskripsi2" class="form-control" rows="3" placeholder="Deskripsi tambahan...">{{ old('profil_deskripsi2', $profileSettings['profil_deskripsi2']) }}</textarea>
+                        <small class="text-muted">Paragraf kedua di bagian hero profil.</small>
+                    </div>
+                    <hr class="my-3">
+                    <h6 class="fw-bold mb-3"><i class="bi bi-card-list me-2"></i>Visi, Misi & Nilai</h6>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Visi</label>
+                        <textarea name="profil_visi" class="form-control" rows="3" placeholder="Visi yayasan...">{{ old('profil_visi', $profileSettings['profil_visi']) }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Misi</label>
+                        <textarea name="profil_misi" class="form-control" rows="3" placeholder="Misi yayasan...">{{ old('profil_misi', $profileSettings['profil_misi']) }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Nilai-Nilai</label>
+                        <textarea name="profil_nilai" class="form-control" rows="3" placeholder="Nilai-nilai yayasan...">{{ old('profil_nilai', $profileSettings['profil_nilai']) }}</textarea>
+                    </div>
+                </div>
+            </div>
+
             {{-- Payment Settings --}}
             <div class="card mb-4">
                 <div class="card-header">
@@ -196,6 +234,7 @@
                 <ul class="small text-muted">
                     <li><strong>Logo & Nama</strong> — Navbar di semua halaman</li>
                     <li><strong>Hero</strong> — Halaman utama (beranda)</li>
+                    <li><strong>Profil Yayasan</strong> — Halaman kegiatan (bagian atas)</li>
                     <li><strong>No. WhatsApp</strong> — Tombol konfirmasi setelah donasi</li>
                     <li><strong>Pembayaran</strong> — Form donasi & footer</li>
                 </ul>

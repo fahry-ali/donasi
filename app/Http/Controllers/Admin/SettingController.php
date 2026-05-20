@@ -15,7 +15,8 @@ class SettingController extends Controller
     {
         $settings = Setting::getPaymentSettings();
         $siteSettings = Setting::getSiteSettings();
-        return view('admin.settings.index', compact('settings', 'siteSettings'));
+        $profileSettings = Setting::getProfileSettings();
+        return view('admin.settings.index', compact('settings', 'siteSettings', 'profileSettings'));
     }
 
     /**
@@ -39,6 +40,12 @@ class SettingController extends Controller
             'hero_badge' => 'nullable|string|max:100',
             'hero_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
             'wa_konfirmasi' => 'nullable|string|max:20',
+            'profil_nama' => 'nullable|string|max:255',
+            'profil_deskripsi1' => 'nullable|string|max:1000',
+            'profil_deskripsi2' => 'nullable|string|max:1000',
+            'profil_visi' => 'nullable|string|max:1000',
+            'profil_misi' => 'nullable|string|max:1000',
+            'profil_nilai' => 'nullable|string|max:1000',
         ]);
 
         // Save bank settings
@@ -87,6 +94,14 @@ class SettingController extends Controller
         if ($request->hasFile('hero_image')) {
             $path = $request->file('hero_image')->store('hero', 'public');
             Setting::set('hero_image', 'storage/' . $path);
+        }
+
+        // Save yayasan profile settings
+        $profileFields = ['profil_nama', 'profil_deskripsi1', 'profil_deskripsi2', 'profil_visi', 'profil_misi', 'profil_nilai'];
+        foreach ($profileFields as $field) {
+            if ($request->filled($field)) {
+                Setting::set($field, $request->$field);
+            }
         }
 
         return redirect()->route('admin.settings.index')

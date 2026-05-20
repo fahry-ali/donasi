@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('page-title', 'Kelola Donasi')
+@section('page-title', 'Verifikasi Donasi')
 @section('breadcrumb')
     <li class="breadcrumb-item active">Donasi</li>
 @endsection

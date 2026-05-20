@@ -99,24 +99,6 @@
                 </div>
             </div>
             
-            <!-- Approve Only -->
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="bi bi-check-lg me-2"></i>Terima Usulan
-                </div>
-                <div class="card-body">
-                    <form action="{{ route('admin.usulan.approve', $usulan->id_usulan) }}" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label class="form-label">Catatan (opsional)</label>
-                            <textarea name="catatan_admin" class="form-control" rows="2"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">
-                            <i class="bi bi-check-circle me-1"></i>Terima
-                        </button>
-                    </form>
-                </div>
-            </div>
             
             <!-- Reject -->
             <div class="card">

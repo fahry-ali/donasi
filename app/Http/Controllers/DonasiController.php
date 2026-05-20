@@ -26,16 +26,12 @@ class DonasiController extends Controller
                 ->with('error', 'Program donasi ini sudah tidak aktif.');
         }
 
-        // If authenticated as donatur, go directly to donation form
-        if (auth()->check() && auth()->user()->isDonatur()) {
+        // If authenticated, go directly to donation form (skip choice page)
+        if (auth()->check()) {
             $paymentSettings = Setting::getPaymentSettings();
-            return view('donasi.create', compact('program', 'paymentSettings'));
-        }
-
-        // If authenticated but not donatur
-        if (auth()->check() && !auth()->user()->isDonatur()) {
-            // Allow non-donatur users to also see the choice page
-            // or redirect them to guest mode
+            // Non-donatur users (masyarakat) see guest-style form with manual input
+            $isGuest = !auth()->user()->isDonatur();
+            return view('donasi.create', compact('program', 'paymentSettings', 'isGuest'));
         }
 
         // If guest=1 query param, show donation form in guest mode

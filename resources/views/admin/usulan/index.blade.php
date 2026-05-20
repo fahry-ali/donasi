@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('page-title', 'Usulan Program')
+@section('page-title', 'Verifikasi Usulan Program')
 @section('breadcrumb')
     <li class="breadcrumb-item active">Usulan Program</li>
 @endsection

@@ -23,37 +23,7 @@
                             @endif
                         </div>
                         
-                        <!-- Bank Info -->
-                        <div id="bank-info" class="alert" style="background: #f0fdf4; border: 1px solid #bbf7d0;">
-                            <h6 class="fw-bold mb-3"><i class="bi bi-bank me-2"></i>Transfer ke Rekening:</h6>
-                            <div class="row">
-                                <div class="col-md-6 mb-2">
-                                    <strong>{{ $paymentSettings['bank1_nama'] }}</strong><br>
-                                    <span class="fs-5 fw-bold text-primary">{{ $paymentSettings['bank1_norek'] }}</span><br>
-                                    <small>a.n. {{ $paymentSettings['bank1_atas_nama'] }}</small>
-                                </div>
-                                @if($paymentSettings['bank2_nama'] && $paymentSettings['bank2_norek'])
-                                <div class="col-md-6 mb-2">
-                                    <strong>{{ $paymentSettings['bank2_nama'] }}</strong><br>
-                                    <span class="fs-5 fw-bold text-primary">{{ $paymentSettings['bank2_norek'] }}</span><br>
-                                    <small>a.n. {{ $paymentSettings['bank2_atas_nama'] }}</small>
-                                </div>
-                                @endif
-                            </div>
-                        </div>
                         
-                        <!-- QRIS Info -->
-                        <div id="qris-info" class="alert" style="background: #f0fdf4; border: 1px solid #bbf7d0; display: none;">
-                            <h6 class="fw-bold mb-3"><i class="bi bi-qr-code me-2"></i>Scan QRIS untuk Pembayaran:</h6>
-                            <div class="text-center">
-                                <div class="bg-white p-3 rounded d-inline-block mb-3" style="border: 2px dashed #10b981;">
-                                    <!-- QRIS Code Image -->
-                                    <img src="{{ asset($paymentSettings['qris_image']) }}" alt="QRIS Code" class="img-fluid" style="max-width: 250px; height: auto;">
-                                </div>
-                                <p class="text-muted mb-1"><small>Scan QR code di atas menggunakan aplikasi e-wallet atau mobile banking Anda</small></p>
-                                <p class="fw-semibold text-primary">a.n. {{ $paymentSettings['qris_atas_nama'] }}</p>
-                            </div>
-                        </div>
                         
                         <form action="{{ route('donasi.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
@@ -162,6 +132,37 @@
                                                 <i class="bi bi-qr-code fs-4 d-block mb-1"></i>
                                                 QRIS
                                             </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Bank Info -->
+                                    <div id="bank-info" class="mt-3 alert mb-0" style="background: #f0fdf4; border: 1px solid #bbf7d0;">
+                                        <h6 class="fw-bold mb-3"><i class="bi bi-bank me-2"></i>Transfer ke Rekening:</h6>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-2">
+                                                <strong>{{ $paymentSettings['bank1_nama'] }}</strong><br>
+                                                <span class="fs-5 fw-bold text-primary">{{ $paymentSettings['bank1_norek'] }}</span><br>
+                                                <small>a.n. {{ $paymentSettings['bank1_atas_nama'] }}</small>
+                                            </div>
+                                            @if($paymentSettings['bank2_nama'] && $paymentSettings['bank2_norek'])
+                                            <div class="col-md-6 mb-2">
+                                                <strong>{{ $paymentSettings['bank2_nama'] }}</strong><br>
+                                                <span class="fs-5 fw-bold text-primary">{{ $paymentSettings['bank2_norek'] }}</span><br>
+                                                <small>a.n. {{ $paymentSettings['bank2_atas_nama'] }}</small>
+                                            </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- QRIS Info -->
+                                    <div id="qris-info" class="mt-3 alert mb-0" style="background: #f0fdf4; border: 1px solid #bbf7d0; display: none;">
+                                        <h6 class="fw-bold mb-3"><i class="bi bi-qr-code me-2"></i>Scan QRIS untuk Pembayaran:</h6>
+                                        <div class="text-center">
+                                            <div class="bg-white p-3 rounded d-inline-block mb-3" style="border: 2px dashed #10b981;">
+                                                <img src="{{ asset($paymentSettings['qris_image']) }}" alt="QRIS Code" class="img-fluid" style="max-width: 250px; height: auto;">
+                                            </div>
+                                            <p class="text-muted mb-1"><small>Scan QR code di atas menggunakan aplikasi e-wallet atau mobile banking Anda</small></p>
+                                            <p class="fw-semibold text-primary">a.n. {{ $paymentSettings['qris_atas_nama'] }}</p>
                                         </div>
                                     </div>
                                 </div>
