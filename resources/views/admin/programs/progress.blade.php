@@ -16,7 +16,7 @@
             <div class="card-body">
                 <h5 class="fw-bold mb-3">{{ $program->judul_program }}</h5>
                 
-                <form action="{{ route('admin.programs.progress.store', $program->id_program) }}" method="POST">
+                <form action="{{ route('admin.programs.progress.store', $program->id_program) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     
                     <div class="mb-3">
@@ -24,12 +24,28 @@
                         <textarea name="deskripsi_update" class="form-control" rows="4" required placeholder="Jelaskan perkembangan program...">{{ old('deskripsi_update') }}</textarea>
                     </div>
                     
-                    <div class="mb-4">
-                        <label class="form-label">Persentase Progres <span class="text-danger">*</span></label>
-                        <div class="input-group" style="max-width: 200px;">
-                            <input type="number" name="persentase" class="form-control" value="{{ old('persentase', 0) }}" min="0" max="100" required>
-                            <span class="input-group-text">%</span>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Persentase Progres <span class="text-danger">*</span></label>
+                            <div class="input-group" style="max-width: 200px;">
+                                <input type="number" name="persentase" class="form-control" value="{{ old('persentase', 0) }}" min="0" max="100" required>
+                                <span class="input-group-text">%</span>
+                            </div>
                         </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Dana yang Digunakan</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rp</span>
+                                <input type="number" name="dana_digunakan" class="form-control" value="{{ old('dana_digunakan') }}" min="0" placeholder="0">
+                            </div>
+                            <small class="text-muted">Opsional. Masukkan jumlah dana yang sudah digunakan.</small>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">Foto Progres</label>
+                        <input type="file" name="foto" class="form-control" accept="image/jpeg,image/png,image/jpg">
+                        <small class="text-muted">Opsional. Upload foto progres pembangunan (JPG/PNG, maks 2MB).</small>
                     </div>
                     
                     <button type="submit" class="btn btn-primary">
@@ -52,9 +68,21 @@
                                 {{ $update->persentase }}%
                             </div>
                         </div>
-                        <div>
+                        <div class="flex-grow-1">
                             <small class="text-muted">{{ $update->created_at->format('d M Y, H:i') }}</small>
-                            <p class="mb-0">{{ $update->deskripsi_update }}</p>
+                            <p class="mb-1">{{ $update->deskripsi_update }}</p>
+                            
+                            @if($update->dana_digunakan)
+                                <span class="badge bg-warning text-dark me-2">
+                                    <i class="bi bi-cash-stack me-1"></i>Dana Digunakan: Rp {{ number_format($update->dana_digunakan, 0, ',', '.') }}
+                                </span>
+                            @endif
+                            
+                            @if($update->foto)
+                                <div class="mt-2">
+                                    <img src="{{ asset('storage/' . $update->foto) }}" class="rounded border" style="max-width: 300px; max-height: 200px; object-fit: cover;" alt="Foto Progres">
+                                </div>
+                            @endif
                         </div>
                     </div>
                 @empty
@@ -82,6 +110,21 @@
                     <small class="text-muted">Target Dana</small>
                     <p class="fw-semibold mb-0">Rp {{ number_format($program->target_dana, 0, ',', '.') }}</p>
                 </div>
+                
+                @php
+                    $totalDanaDigunakan = $program->updateProgres->sum('dana_digunakan');
+                @endphp
+                @if($totalDanaDigunakan > 0)
+                <div class="mb-3">
+                    <small class="text-muted">Total Dana Digunakan</small>
+                    <p class="fw-semibold mb-0 text-warning">Rp {{ number_format($totalDanaDigunakan, 0, ',', '.') }}</p>
+                </div>
+                <div class="mb-3">
+                    <small class="text-muted">Sisa Dana</small>
+                    <p class="fw-semibold mb-0 text-success">Rp {{ number_format($program->dana_terkumpul - $totalDanaDigunakan, 0, ',', '.') }}</p>
+                </div>
+                @endif
+                
                 <div class="mb-3">
                     <small class="text-muted">Status</small>
                     <p class="mb-0">

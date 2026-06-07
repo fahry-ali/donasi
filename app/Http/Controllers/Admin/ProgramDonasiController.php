@@ -150,12 +150,21 @@ class ProgramDonasiController extends Controller
         $request->validate([
             'deskripsi_update' => 'required|string',
             'persentase' => 'required|integer|min:0|max:100',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'dana_digunakan' => 'nullable|numeric|min:0',
         ]);
+
+        $fotoPath = null;
+        if ($request->hasFile('foto')) {
+            $fotoPath = $request->file('foto')->store('progres', 'public');
+        }
 
         UpdateProgres::create([
             'id_program' => $id,
             'deskripsi_update' => $request->deskripsi_update,
             'persentase' => $request->persentase,
+            'foto' => $fotoPath,
+            'dana_digunakan' => $request->dana_digunakan,
         ]);
 
         return redirect()->route('admin.programs.progress', $id)

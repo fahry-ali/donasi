@@ -16,6 +16,8 @@ class UpdateProgres extends Model
         'id_program',
         'deskripsi_update',
         'persentase',
+        'foto',
+        'dana_digunakan',
     ];
 
     /**

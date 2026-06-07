@@ -45,14 +45,14 @@
                         @else
                             <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=400&h=200&fit=crop" class="card-img-top" alt="{{ $program->judul_program }}">
                         @endif
-                        <div class="card-body">
+                        <div class="card-body d-flex flex-column">
                             <span class="badge mb-2" style="background: #d1fae5; color: #059669;">
                                 {{ $program->kategori->nama_kategori ?? 'Umum' }}
                             </span>
                             <h5 class="card-title fw-bold">{{ $program->judul_program }}</h5>
                             <p class="card-text text-muted small">{{ Str::limit($program->deskripsi, 100) }}</p>
                             
-                            <div class="mb-3">
+                            <div class="mb-3 mt-auto">
                                 <div class="d-flex justify-content-between small mb-1">
                                     <span>Terkumpul</span>
                                     <span class="fw-bold">{{ number_format($program->progress_percentage, 0) }}%</span>

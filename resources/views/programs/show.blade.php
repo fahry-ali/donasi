@@ -87,9 +87,21 @@
                                                 {{ $update->persentase }}%
                                             </div>
                                         </div>
-                                        <div>
+                                        <div class="flex-grow-1">
                                             <small class="text-muted">{{ $update->created_at->format('d M Y, H:i') }}</small>
-                                            <p class="mb-0">{{ $update->deskripsi_update }}</p>
+                                            <p class="mb-1">{{ $update->deskripsi_update }}</p>
+                                            
+                                            @if($update->dana_digunakan)
+                                                <span class="badge bg-warning text-dark">
+                                                    <i class="bi bi-cash-stack me-1"></i>Dana Digunakan: Rp {{ number_format($update->dana_digunakan, 0, ',', '.') }}
+                                                </span>
+                                            @endif
+                                            
+                                            @if($update->foto)
+                                                <div class="mt-2">
+                                                    <img src="{{ asset('storage/' . $update->foto) }}" class="rounded border shadow-sm" style="max-width: 100%; max-height: 300px; object-fit: cover;" alt="Foto Progres">
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 @endforeach
@@ -101,83 +113,85 @@
             
             <!-- Sidebar -->
             <div class="col-lg-4" data-aos="fade-left">
-                <!-- Donation Progress Card -->
-                <div class="card mb-4 sticky-top sticky-sidebar" style="top: 100px;">
-                    <div class="card-body p-4">
-                        <h5 class="fw-bold mb-4">Progres Donasi</h5>
-                        
-                        <div class="mb-4">
-                            <div class="d-flex justify-content-between mb-2">
-                                <span class="text-muted">Terkumpul</span>
-                                <span class="fw-bold">{{ number_format($program->progress_percentage, 1) }}%</span>
-                            </div>
-                            <div class="progress mb-3" style="height: 12px;">
-                                <div class="progress-bar" style="width: {{ $program->progress_percentage }}%"></div>
-                            </div>
-                            <div class="row text-center donation-amount">
-                                <div class="col-6">
-                                    <h4 class="text-primary fw-bold mb-0">Rp {{ number_format($program->dana_terkumpul, 0, ',', '.') }}</h4>
-                                    <small class="text-muted">Terkumpul</small>
+                <!-- Donation Progress Card (sticky) -->
+                <div class="sticky-top sticky-sidebar" style="top: 100px; z-index: 10;">
+                    <div class="card mb-4">
+                        <div class="card-body p-4">
+                            <h5 class="fw-bold mb-4">Progres Donasi</h5>
+                            
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-muted">Terkumpul</span>
+                                    <span class="fw-bold">{{ number_format($program->progress_percentage, 1) }}%</span>
                                 </div>
-                                <div class="col-6">
-                                    <h4 class="fw-bold mb-0">Rp {{ number_format($program->target_dana, 0, ',', '.') }}</h4>
-                                    <small class="text-muted">Target</small>
+                                <div class="progress mb-3" style="height: 12px;">
+                                    <div class="progress-bar" style="width: {{ $program->progress_percentage }}%"></div>
+                                </div>
+                                <div class="row text-center donation-amount">
+                                    <div class="col-6">
+                                        <h4 class="text-primary fw-bold mb-0">Rp {{ number_format($program->dana_terkumpul, 0, ',', '.') }}</h4>
+                                        <small class="text-muted">Terkumpul</small>
+                                    </div>
+                                    <div class="col-6">
+                                        <h4 class="fw-bold mb-0">Rp {{ number_format($program->target_dana, 0, ',', '.') }}</h4>
+                                        <small class="text-muted">Target</small>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        @if($program->isAktif())
-                            <a href="{{ route('donasi.create', $program->id_program) }}" class="btn btn-primary btn-lg w-100">
-                                <i class="bi bi-heart-fill me-2"></i>Donasi Sekarang
-                            </a>
-                        @else
-                            <button class="btn btn-secondary btn-lg w-100" disabled>
-                                Program Telah Selesai
-                            </button>
-                        @endif
-                        
-                        <hr class="my-4">
-                        
-                        <div class="d-flex align-items-center gap-3 mb-3">
-                            <i class="bi bi-person-circle fs-4 text-muted"></i>
-                            <div>
-                                <small class="text-muted">Dibuat oleh</small>
-                                <p class="mb-0 fw-semibold">{{ $program->creator->nama ?? 'Admin' }}</p>
+                            
+                            @if($program->isAktif())
+                                <a href="{{ route('donasi.create', $program->id_program) }}" class="btn btn-primary btn-lg w-100">
+                                    <i class="bi bi-heart-fill me-2"></i>Donasi Sekarang
+                                </a>
+                            @else
+                                <button class="btn btn-secondary btn-lg w-100" disabled>
+                                    Program Telah Selesai
+                                </button>
+                            @endif
+                            
+                            <hr class="my-4">
+                            
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <i class="bi bi-person-circle fs-4 text-muted"></i>
+                                <div>
+                                    <small class="text-muted">Dibuat oleh</small>
+                                    <p class="mb-0 fw-semibold">{{ $program->creator->nama ?? 'Admin' }}</p>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="d-flex align-items-center gap-3">
-                            <i class="bi bi-calendar3 fs-4 text-muted"></i>
-                            <div>
-                                <small class="text-muted">Tanggal Dibuat</small>
-                                <p class="mb-0 fw-semibold">{{ $program->created_at->format('d F Y') }}</p>
+                            
+                            <div class="d-flex align-items-center gap-3">
+                                <i class="bi bi-calendar3 fs-4 text-muted"></i>
+                                <div>
+                                    <small class="text-muted">Tanggal Dibuat</small>
+                                    <p class="mb-0 fw-semibold">{{ $program->created_at->format('d F Y') }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- Recent Donors (inside sticky so it scrolls together) -->
+                    @if($program->donasiDiterima->count() > 0)
+                        <div class="card">
+                            <div class="card-header bg-white">
+                                <h6 class="mb-0"><i class="bi bi-people me-2"></i>Donatur Terbaru</h6>
+                            </div>
+                            <div class="card-body">
+                                @foreach($program->donasiDiterima->take(5) as $donasi)
+                                    <div class="d-flex align-items-center gap-3 mb-3">
+                                        <div class="rounded-circle bg-primary-light text-primary d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: #d1fae5 !important; color: #059669 !important;">
+                                            {{ strtoupper(substr($donasi->nama_donatur, 0, 1)) }}
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <p class="mb-0 fw-semibold">{{ $donasi->nama_donatur }}</p>
+                                            <small class="text-muted">{{ $donasi->created_at->diffForHumans() }}</small>
+                                        </div>
+                                        <span class="text-primary fw-bold">Rp {{ number_format($donasi->nominal, 0, ',', '.') }}</span>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
                 </div>
-                
-                <!-- Recent Donors -->
-                @if($program->donasiDiterima->count() > 0)
-                    <div class="card">
-                        <div class="card-header bg-white">
-                            <h6 class="mb-0"><i class="bi bi-people me-2"></i>Donatur Terbaru</h6>
-                        </div>
-                        <div class="card-body">
-                            @foreach($program->donasiDiterima->take(5) as $donasi)
-                                <div class="d-flex align-items-center gap-3 mb-3">
-                                    <div class="rounded-circle bg-primary-light text-primary d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: #d1fae5 !important; color: #059669 !important;">
-                                        {{ strtoupper(substr($donasi->nama_donatur, 0, 1)) }}
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <p class="mb-0 fw-semibold">{{ $donasi->nama_donatur }}</p>
-                                        <small class="text-muted">{{ $donasi->created_at->diffForHumans() }}</small>
-                                    </div>
-                                    <span class="text-primary fw-bold">Rp {{ number_format($donasi->nominal, 0, ',', '.') }}</span>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
             </div>
         </div>
         
