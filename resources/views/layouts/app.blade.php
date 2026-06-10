@@ -499,10 +499,10 @@
                     </h5>
                     <p>Yayasan yang bergerak dalam bidang sosial kemanusiaan untuk membantu anak-anak yatim piatu dan dhuafa mendapatkan kehidupan yang lebih baik.</p>
                     <div class="d-flex gap-3 mt-3">
-                        <a href="#" class="fs-5"><i class="bi bi-facebook"></i></a>
+                        <a href="https://www.facebook.com/bumidamaiyogyakarta" class="fs-5"><i class="bi bi-facebook"></i></a>
                         <a href="https://www.instagram.com/yayasanbumidamai?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="fs-5"><i class="bi bi-instagram"></i></a>
-                        <a href="#" class="fs-5"><i class="bi bi-youtube"></i></a>
-                        <a href="#" class="fs-5"><i class="bi bi-whatsapp"></i></a>
+                        <a href="https://youtu.be/4Gperqd6kS0?si=wGMOCYfR0emQVxPQ" class="fs-5"><i class="bi bi-youtube"></i></a>
+                        <a href="https://wa.me/6281392087348" class="fs-5"><i class="bi bi-whatsapp"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4 mb-4">
@@ -525,7 +525,6 @@
                 <div class="col-lg-3 col-md-4 mb-4">
                     <h5>Rekening Donasi</h5>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><strong>Bank BCA</strong><br>123-456-7890<br>a.n. Yayasan Bumi Damai</li>
                         <li class="mb-2"><strong>Bank Mandiri</strong><br>1370-01-243456-5<br>a.n. Yayasan Rumah Singah Bumi Damai</li>
                     </ul>
                 </div>

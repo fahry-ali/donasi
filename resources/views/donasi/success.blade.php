@@ -47,7 +47,7 @@
                         
                         <div class="d-grid gap-2">
                             @php
-                                $waNumber = \App\Models\Setting::get('wa_konfirmasi', '6281234567890');
+                                $waNumber = \App\Models\Setting::get('wa_konfirmasi', '6281392087348');
                                 $waMessage = urlencode(
                                     "Assalamu'alaikum, saya ingin mengkonfirmasi donasi saya:\n\n" .
                                     "Kode Transaksi: " . $donasi->kode_transaksi . "\n" .

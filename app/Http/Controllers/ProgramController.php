@@ -13,11 +13,17 @@ class ProgramController extends Controller
      */
     public function index(Request $request)
     {
-        $query = ProgramDonasi::with('kategori')->aktif();
+        $query = ProgramDonasi::with('kategori')
+            ->whereIn('status_program', ['aktif', 'selesai']);
 
         // Filter by category
         if ($request->filled('kategori')) {
             $query->where('id_kategori', $request->kategori);
+        }
+
+        // Filter by status
+        if ($request->filled('status')) {
+            $query->where('status_program', $request->status);
         }
 
         // Search by title
@@ -25,7 +31,10 @@ class ProgramController extends Controller
             $query->where('judul_program', 'like', '%' . $request->search . '%');
         }
 
-        $programs = $query->orderBy('created_at', 'desc')->paginate(9);
+        // Show active programs first, then completed
+        $programs = $query->orderByRaw("FIELD(status_program, 'aktif', 'selesai')")
+            ->orderBy('created_at', 'desc')
+            ->paginate(9);
         $kategori = KategoriProgram::all();
 
         return view('programs.index', compact('programs', 'kategori'));
@@ -45,7 +54,7 @@ class ProgramController extends Controller
         // Get related programs
         $relatedPrograms = ProgramDonasi::where('id_kategori', $program->id_kategori)
             ->where('id_program', '!=', $program->id_program)
-            ->aktif()
+            ->whereIn('status_program', ['aktif', 'selesai'])
             ->take(3)
             ->get();
 
